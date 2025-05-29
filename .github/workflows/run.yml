@@ -1,12 +1,10 @@
 name: YouTube Daily Updater
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-  - cron: '0 10 * * *'  # щодня о 10:00 UTC (13:00 за Києвом)
+    - cron: '15 10 * * *'  # щодня о 10:15 UTC (13:15 за Києвом)
   workflow_dispatch:
+
 
 jobs:
   run-python-script:
