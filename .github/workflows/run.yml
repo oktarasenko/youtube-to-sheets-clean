@@ -2,7 +2,7 @@ name: YouTube Daily Updater
 
 on:
   schedule:
-    - cron: '15 10 * * *'  # щодня о 10:15 UTC (13:15 за Києвом)
+    - cron: '0 7 * * *'  # щодня о 07:00 UTC (10:00 за Києвом)
   workflow_dispatch:
 
 
