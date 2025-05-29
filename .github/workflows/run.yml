@@ -1,0 +1,38 @@
+name: YouTube Daily Updater
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+  - cron: '0 10 * * *'  # щодня о 10:00 UTC (13:00 за Києвом)
+  workflow_dispatch:
+
+jobs:
+  run-python-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout репозиторій
+        uses: actions/checkout@v3
+
+      - name: Встановити Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Встановити залежності
+        run: |
+          python -m pip install --upgrade pip
+          pip install gspread oauth2client pytz requests
+
+      - name: Створити credentials файл
+        run: |
+          echo "$GOOGLE_CREDENTIALS_JSON" > google-credentials.json
+        env:
+          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+
+      - name: Запустити скрипт
+        run: |
+          python3 main.py
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
